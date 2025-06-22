@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f8f3 0%, #e6e9e6 100%);
+            min-height: 100vh;
+        }
+        
+        /* Welcome Page Styles */
+        .welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f8f8f3 0%, #e6e9e6 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            padding: 40px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        /* Welcome page decorative elements */
+        .welcome-decor {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0.3;
+            animation: float 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .welcome-snail {
+            position: absolute;
+            font-size: 32px;
+            opacity: 0.4;
+            animation: crawl 25s linear infinite;
+            pointer-events: none;
+        }
+
+        .welcome-heart {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0.25;
+            animation: pulse 3s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .welcome-leaf {
+            position: absolute;
+            font-size: 18px;
+            opacity: 0.2;
+            animation: sway 6s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes crawl {
+            0% { transform: translateX(-50px) scaleX(1); }
+            50% { transform: translateX(calc(100vw + 50px)) scaleX(1); }
+            51% { transform: translateX(calc(100vw + 50px)) scaleX(-1); }
+            100% { transform: translateX(-50px) scaleX(-1); }
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(-5deg) translateY(0px); }
+            50% { transform: rotate(5deg) translateY(-10px); }
+        }
+
+        .welcome-decor1 { top: 15%; left: 10%; animation-delay: 0s; }
+        .welcome-decor2 { top: 25%; right: 15%; animation-delay: 1s; }
+        .welcome-decor3 { bottom: 30%; left: 20%; animation-delay: 2s; }
+        .welcome-decor4 { bottom: 20%; right: 10%; animation-delay: 0.5s; }
+        .welcome-decor5 { top: 60%; left: 5%; animation-delay: 1.5s; }
+        .welcome-decor6 { top: 40%; right: 5%; animation-delay: 2.5s; }
+        .welcome-decor7 { bottom: 60%; right: 25%; animation-delay: 0.8s; }
+        .welcome-decor8 { top: 80%; left: 30%; animation-delay: 1.8s; }
+
+        .welcome-snail1 { top: 20%; animation-delay: 0s; }
+        .welcome-snail2 { top: 70%; animation-delay: 4s; }
+        .welcome-snail3 { top: 45%; animation-delay: 2s; }
+
+        .welcome-heart1 { top: 10%; left: 20%; animation-delay: 0s; }
+        .welcome-heart2 { top: 35%; right: 25%; animation-delay: 1s; }
+        .welcome-heart3 { bottom: 25%; left: 15%; animation-delay: 2s; }
+        .welcome-heart4 { bottom: 15%; right: 20%; animation-delay: 0.5s; }
+        .welcome-heart5 { top: 55%; left: 10%; animation-delay: 1.5s; }
+        .welcome-heart6 { top: 75%; right: 10%; animation-delay: 2.5s; }
+
+        .welcome-leaf1 { top: 30%; left: 5%; animation-delay: 0s; }
+        .welcome-leaf2 { top: 65%; right: 5%; animation-delay: 2s; }
+        .welcome-leaf3 { bottom: 40%; left: 10%; animation-delay: 1s; }
+        .welcome-leaf4 { top: 85%; right: 15%; animation-delay: 3s; }
+
+        .welcome-snail-left {
+            position: absolute;
+            left: -60px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 40px;
+            opacity: 0.6;
+            animation: wiggle 3s ease-in-out infinite;
+        }
+
+        .welcome-snail-right {
+            position: absolute;
+            right: -60px;
+            top: 50%;
+            transform: translateY(-50%) scaleX(-1);
+            font-size: 40px;
+            opacity: 0.6;
+            animation: wiggle 3s ease-in-out infinite reverse;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: translateY(-50%) rotate(-5deg); }
+            50% { transform: translateY(-50%) rotate(5deg); }
+        }
+
+        .welcome-content {
+            background: rgba(255, 255, 255, 0.97);
+            padding: 50px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(60, 100, 60, 0.15);
+            border: 3px solid #e6cfa7;
+            max-width: 800px;
+            text-align: center;
+            position: relative;
+        }
+
+        .welcome-title {
+            color: #254d32;
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(60, 100, 60, 0.1);
+        }
+
+        .welcome-text {
+            color: #3a3a3a;
+            font-size: 18px;
+            line-height: 1.8;
+            text-align: left;
+            margin-bottom: 40px;
+        }
+
+        .welcome-text ul {
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+
+        .welcome-text li {
+            margin-bottom: 15px;
+            color: #254d32;
+        }
+
+        .go-button {
+            background: linear-gradient(45deg, #254d32, #3a6b35);
+            color: #fffbe7;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(60, 100, 60, 0.15);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .go-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(60, 100, 60, 0.2);
+            background: linear-gradient(45deg, #3a6b35, #254d32);
+            color: #e6cfa7;
+        }
+
+        .main-content {
+            display: none;
+        }
+
+        .main-content.show {
+            display: block;
+        }
+        
+        .nav-tabs {
+            position: relative;
+            background: linear-gradient(90deg, #254d32, #3a6b35);
+            overflow: visible;
+            padding: 0 20px;
+            box-shadow: 0 4px 15px rgba(60, 100, 60, 0.08);
+            border-bottom: 3px solid #254d32;
+        }
+
+        .nav-tabs a {
+            float: left;
+            color: #fffbe7;
+            text-align: center;
+            padding: 18px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            text-shadow: 1px 1px 2px rgba(40,60,40,0.12);
+            letter-spacing: 0.5px;
+        }
+
+        .nav-tabs a:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: #e6cfa7;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(60, 100, 60, 0.08);
+        }
+
+        .nav-tabs a.active {
+            background: rgba(255, 255, 255, 0.18);
+            color: #e6cfa7;
+            border-bottom: 3px solid #e6cfa7;
+        }
+
+        .content {
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .content h2 {
+            color: #254d32;
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(60, 100, 60, 0.08);
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .content p {
+            color: #3a3a3a;
+            font-size: 18px;
+            line-height: 1.6;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(60, 100, 60, 0.06);
+            border: 2px solid #e6cfa7;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #254d32;
+            font-size: 16px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e6cfa7;
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #254d32;
+            box-shadow: 0 0 10px rgba(60, 100, 60, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #254d32, #3a6b35);
+            color: #fffbe7;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(60, 100, 60, 0.10);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(60, 100, 60, 0.13);
+            background: linear-gradient(45deg, #3a6b35, #254d32);
+            color: #e6cfa7;
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            transform: none;
+        }
+
+        .success-message {
+            color: #3a6b35;
+            font-weight: bold;
+            margin-top: 15px;
+            text-align: center;
+            font-size: 18px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #e6cfa7;
+        }
+
+        .error-message {
+            color: #a94442;
+            font-weight: bold;
+            margin-top: 15px;
+            text-align: center;
+            font-size: 18px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #e6cfa7;
+        }
+
+        .timeline-title {
+            color: #254d32;
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 0;
+            margin-top: 40px;
+            text-shadow: 2px 2px 4px rgba(60, 100, 60, 0.08);
+            font-weight: 700;
+        }
+
+        .nav-tabs::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(180deg); }
+            100% { transform: translateY(0px) rotate(360deg); }
+        }
+
+        .floating-heart {
+            position: fixed;
+            font-size: 20px;
+            animation: float 3s ease-in-out infinite;
+            opacity: 0.3;
+            pointer-events: none;
+            color: #3a6b35;
+        }
+
+        .heart1 { top: 10%; left: 10%; animation-delay: 0s; }
+        .heart2 { top: 20%; right: 15%; animation-delay: 1s; }
+        .heart3 { bottom: 30%; left: 20%; animation-delay: 2s; }
+        .heart4 { bottom: 20%; right: 10%; animation-delay: 0.5s; }
+
+        /* Photo Gallery Styles */
+        .photo-gallery {
+            margin-top: 40px;
+            background: rgba(255, 255, 255, 0.97);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(60, 100, 60, 0.08);
+            border: 2px solid #e6cfa7;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .photo-gallery h3 {
+            color: #254d32;
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(60, 100, 60, 0.08);
+            font-weight: 700;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .photo-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(60, 100, 60, 0.10);
+            transition: all 0.3s ease;
+            aspect-ratio: 1;
+            background: #f8f8f3;
+        }
+
+        .photo-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(60, 100, 60, 0.13);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-item:hover img {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            
+            .photo-gallery {
+                padding: 20px;
+            }
+            
+            .photo-gallery h3 {
+                font-size: 1.5em;
+            }
+        }
+
+        /* Good Things List Styles */
+        .good-things-list {
+            background: rgba(255, 255, 255, 0.97);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(60, 100, 60, 0.08);
+            border: 2px solid #e6cfa7;
+            margin-top: 20px;
+        }
+
+        .good-thing-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+            border: 2px solid #e6cfa7;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(60, 100, 60, 0.06);
+        }
+
+        .good-thing-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 4px 15px rgba(60, 100, 60, 0.13);
+            border-color: #3a6b35;
+            background: rgba(255, 255, 255, 0.97);
+        }
+
+        .good-thing-icon {
+            font-size: 2em;
+            margin-right: 20px;
+            min-width: 40px;
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+
+        .good-thing-text {
+            font-size: 18px;
+            color: #254d32;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            .good-things-list {
+                padding: 20px;
+            }
+            
+            .good-thing-item {
+                padding: 12px;
+                margin-bottom: 8px;
+            }
+            
+            .good-thing-icon {
+                font-size: 1.5em;
+                margin-right: 15px;
+                min-width: 30px;
+            }
+            
+            .good-thing-text {
+                font-size: 16px;
+            }
+        }
+
+        /* Cute Snail Animations */
+        .snail {
+            position: absolute;
+            bottom: 50px; /* Sits on top of the nav bar */
+            left: 0;
+            font-size: 52px;
+            cursor: pointer;
+            user-select: none;
+            z-index: 1000;
+            transition: transform 0.2s ease-in-out;
+            will-change: left, transform;
+            /* To make sure it sits on top */
+            transform-origin: bottom;
+        }
+        .snail.flipped {
+            transform: scaleX(-1);
+        }
+        .snail::after {
+            content: "✨";
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            opacity: 0.7;
+            animation: sparkle 1s ease-in-out infinite;
+        }
+        @keyframes sparkle {
+            0%, 100% { opacity: 0.3; transform: translateY(-50%) scale(0.8); }
+            50% { opacity: 0.8; transform: translateY(-50%) scale(1.2); }
+        }
+        @media (max-width: 768px) {
+            .snail {
+                font-size: 44px;
+                bottom: 45px;
+            }
+            .snail::after {
+                font-size: 12px;
+            }
+        }
+
+        /* Countdown Timer Styles */
+        .countdown-container {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(230, 207, 167, 0.1));
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(60, 100, 60, 0.1);
+            border: 2px solid #e6cfa7;
+            text-align: center;
+        }
+
+        .countdown-title {
+            color: #254d32;
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(60, 100, 60, 0.1);
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 80px;
+        }
+
+        .countdown-number {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #254d32;
+            text-shadow: 2px 2px 4px rgba(60, 100, 60, 0.1);
+            line-height: 1;
+        }
+
+        .countdown-label {
+            font-size: 0.9em;
+            color: #3a6b35;
+            font-weight: 600;
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .countdown-separator {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #254d32;
+            margin-top: -10px;
+        }
+
+        /* Responsive countdown */
+        @media (max-width: 768px) {
+            .countdown-container {
+                margin: 15px;
+                padding: 15px;
+            }
+            
+            .countdown-title {
+                font-size: 1.2em;
+            }
+            
+            .countdown-number {
+                font-size: 2em;
+            }
+            
+            .countdown-separator {
+                font-size: 2em;
+            }
+            
+            .countdown-item {
+                min-width: 60px;
+            }
+        }
+
+        /* Timeline Styles */
+        .timeline {
+            display: flex;
+            overflow-x: auto;
+            overflow-y: hidden;
+            position: relative;
+            padding: 80px 0; /* Much more space for items above/below */
+            margin: 40px 0;
+            /* Hide scrollbar */
+            scrollbar-width: none;  /* Firefox */
+            -ms-overflow-style: none; /* IE, Edge */
+        }
+        .timeline::-webkit-scrollbar {
+            display: none; /* Hide for Webkit browsers */
+        }
+
+        /* The actual timeline bar */
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            height: 4px;
+            background: #e6cfa7;
+            /* Needs to be wide enough to contain all items */
+            width: 9000px;
+        }
+
+        .timeline-item {
+            flex: 0 0 320px; /* Fixed width for each item */
+            position: relative;
+            height: 350px; /* Much more vertical space to prevent text cut-off */
+        }
+
+        /* The dot on the timeline for each item */
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background-color: #fdfcf9;
+            border: 4px solid #3a6b35;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-content {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%; /* Gives a little padding on the sides */
+            padding: 0;
+            background: none;
+            border: none;
+            box-shadow: none;
+            transition: all 0.3s ease;
+        }
+
+        /* The stem connecting the box to the timeline */
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 20px; /* Length of the stem */
+            background-color: #e6cfa7;
+        }
+
+        /* --- Alternating positions --- */
+
+        /* Position items BELOW the line */
+        .timeline-item:nth-child(odd) .timeline-content {
+            top: calc(50% + 30px);
+        }
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            top: -20px; /* Stem points up to the line */
+        }
+        .timeline-item:nth-child(odd) .timeline-content:hover {
+            transform: translateX(-50%) translateY(-3px);
+        }
+
+        /* Position items ABOVE the line */
+        .timeline-item:nth-child(even) .timeline-content {
+            bottom: calc(50% + 30px);
+        }
+        .timeline-item:nth-child(even) .timeline-content::before {
+            bottom: -20px; /* Stem points down to the line */
+        }
+        .timeline-item:nth-child(even) .timeline-content:hover {
+            transform: translateX(-50%) translateY(-3px);
+        }
+
+        .timeline-date {
+            font-weight: 700;
+            color: #254d32;
+            font-size: 0.9em;
+            margin-bottom: 4px;
+            text-align: center;
+        }
+
+        .timeline-description {
+            font-size: 2px;
+            line-height: 1.1;
+            color: #3a3a3a;
+            text-align: center;
+        }
+
+        @media (max-width: 900px) {
+            .timeline-item {
+                flex-basis: 280px; /* Slightly smaller items on mobile */
+                height: 400px;
+            }
+        }
+
+        /* Good Things Flow Styles */
+        .good-things-question, .good-things-message {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(60, 100, 60, 0.08);
+            border: 2px solid #e6cfa7;
+            margin: 0 auto;
+            max-width: 700px;
+        }
+
+        .good-things-question h2, .good-things-message h2 {
+            color: #254d32;
+            font-size: 2em;
+            margin-bottom: 30px;
+        }
+
+        .good-things-question button, .good-things-message button {
+            background: linear-gradient(45deg, #254d32, #3a6b35);
+            color: #fffbe7;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(60, 100, 60, 0.10);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0 10px;
+        }
+
+        .good-things-question button:hover, .good-things-message button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(60, 100, 60, 0.13);
+            background: linear-gradient(45deg, #3a6b35, #254d32);
+            color: #e6cfa7;
+        }
+
+        .good-things-message p {
+            color: #254d32;
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            background: none;
+            border: none;
+            box-shadow: none;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Overlay -->
+    <div class="welcome-overlay" id="welcomeOverlay">
+        <!-- Decorative background elements -->
+        <div class="welcome-snail welcome-snail1">🐌</div>
+        <div class="welcome-snail welcome-snail2">🐌</div>
+        <div class="welcome-snail welcome-snail3">🐌</div>
+        
+        <div class="welcome-heart welcome-heart1">💚</div>
+        <div class="welcome-heart welcome-heart2">💕</div>
+        <div class="welcome-heart welcome-heart3">💖</div>
+        <div class="welcome-heart welcome-heart4">💗</div>
+        <div class="welcome-heart welcome-heart5">💝</div>
+        <div class="welcome-heart welcome-heart6">💚</div>
+        
+        <div class="welcome-leaf welcome-leaf1">🍃</div>
+        <div class="welcome-leaf welcome-leaf2">🌿</div>
+        <div class="welcome-leaf welcome-leaf3">🍀</div>
+        <div class="welcome-leaf welcome-leaf4">🌱</div>
+        
+        <div class="welcome-decor welcome-decor1">🌿</div>
+        <div class="welcome-decor welcome-decor2">🍃</div>
+        <div class="welcome-decor welcome-decor3">🌱</div>
+        <div class="welcome-decor welcome-decor4">🍀</div>
+        <div class="welcome-decor welcome-decor5">🌿</div>
+        <div class="welcome-decor welcome-decor6">🍃</div>
+        <div class="welcome-decor welcome-decor7">🌱</div>
+        <div class="welcome-decor welcome-decor8">🍀</div>
+        
+        <div class="welcome-content">
+            <h1 class="welcome-title" id="welcomeTitle">Happy ___ days of our relationship!</h1>
+            <div class="welcome-text">
+                <p>I hope this website will help you a bit no matter what situation you find yourself in:</p>
+                <ul>
+                    <li><strong>Sad? Stressed?</strong> Find some cute photos and happy memories :)</li>
+                    <li><strong>Crashing out?</strong> Feeling like everything in your life is wrong and not worth it? Find a list of just some of the small things that makes everything worth it</li>
+                    <li><strong>Angry and have something you want to say to me?</strong> File a complaint! Hopefully this gives you a space to calm down a bit, write all your thoughts, and everything will get sent straight to my inbox</li>
+                    <li><strong>Leave a note when you visit in the Guestbook!</strong> Tell me about your day, leave a memory, request a website feature that might help you...</li>
+                </ul>
+            </div>
+            <button class="go-button" onclick="enterWebsite()">Go 💕</button>
+        </div>
+    </div>
+
+    <!-- Main Website Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Floating hearts -->
+        <div class="floating-heart heart1">💖</div>
+        <div class="floating-heart heart2">💕</div>
+        <div class="floating-heart heart3">💗</div>
+        <div class="floating-heart heart4">💝</div>
+
+        <!-- Snail -->
+        <!-- <span id="snail" class="snail">🐌</span> -->
+
+        <!-- Countdown Timer -->
+        <div class="countdown-container">
+            <div class="countdown-title">Time Until We Meet Again</div>
+            <div class="countdown-timer">
+                <div class="countdown-item">
+                    <span id="days" class="countdown-number">00</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-separator">:</div>
+                <div class="countdown-item">
+                    <span id="hours" class="countdown-number">00</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-separator">:</div>
+                <div class="countdown-item">
+                    <span id="minutes" class="countdown-number">00</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+                <div class="countdown-separator">:</div>
+                <div class="countdown-item">
+                    <span id="seconds" class="countdown-number">00</span>
+                    <span class="countdown-label">Seconds</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-tabs">
+            <span id="snail" class="snail">🐌</span>
+            <a href="#us" class="active">Us 💕</a>
+            <a href="#good-things">A long list of all things good ✨</a>
+            <a href="#complaint-form">Complaint Form 💌</a>
+            <a href="#guestbook">Guestbook 💬</a>
+        </div>
+
+        <div class="content">
+            <div id="us">
+                
+                <h3 class="timeline-title">Timeline &lt;3</h3>
+                <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="timeline-date">August 20th</h4>
+                                <p class="timeline-description">We meet for the first time (you don't remember this 🙁)</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="timeline-date">October 12th</h4>
+                                <p class="timeline-description">I lay my head on your shoulder because I'm drunk and you're drunk and why not</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="timeline-date">November</h4>
+                                <p class="timeline-description">Nearly an entire month of situationship…</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="timeline-date">December 1st</h4>
+                                <p class="timeline-description">We make the best decision of our lives</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="timeline-date">December 3rd</h4>
+                                <p class="timeline-description">You tell me you love me (you would not believe how many "I love you"s I had to scroll through to find this)</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="timeline-date">December 11th</h4>
+                                <p class="timeline-description">Our first date at Olives and Oil!</p>
+                            </div>
+                        </div>
+                         <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="timeline-date">December 13th</h4>
+                                <p class="timeline-description">I tell you I love you (took me long enough) (mb)</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="timeline-date">December 14th</h4>
+                                <p class="timeline-description">We finally kiss each other (took you long enough)</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="timeline-date">December 18th</h4>
+                                <p class="timeline-description">We get stranded on East Rock and you don't murder me</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="timeline-date">January 8th</h4>
+                                <p class="timeline-description">I meet your parents!</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="timeline-date">January 9th</h4>
+                                <p class="timeline-description">You take me to korean BBQ and I start crying (mb 2.0)</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="timeline-date">January 19th</h4>
+                                <p class="timeline-description">I am drunk and you let me stay over in your room!</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="timeline-date">February 2nd</h4>
+                                <p class="timeline-description">We eat some very yummy birria tacos on long wharf</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="timeline-date">February 8th</h4>
+                                <p class="timeline-description">You cut my hair and it's not terrible!</p>
+                            </div>
+                        </div>
+                         <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="timeline-date">February 11th</h4>
+                                <p class="timeline-description">Such yummy clam chowder. Oh and you take me out for my birthday and make me cry again (mb 3.0)</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="timeline-date">February 14th</h4>
+                                <p class="timeline-description">You get me hooked on steak and we have perhaps the best weekend of our lives in New York</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="timeline-date">February 21st</h4>
+                                <p class="timeline-description">First year formal together &lt;3</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="timeline-date">March 8th</h4>
+                                <p class="timeline-description">You meet my parents!</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="timeline-date">March 29th</h4>
+                                <p class="timeline-description">You buy Mr. Fred!</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="timeline-date">April 26th</h4>
+                                <p class="timeline-description">Drunkenness and the one and only, Ken Carson</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="timeline-date">April 28th</h4>
+                                <p class="timeline-description">We adopt Fred and Doug!</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="timeline-date">April 29th</h4>
+                                <p class="timeline-description">You come to my house!</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="timeline-date">May 2nd</h4>
+                                <p class="timeline-description">We spend finals week eating only China King and Yorkside steak</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="timeline-date">May 24th</h4>
+                                <p class="timeline-description">We live together and it's so so wonderful</p>
+                            </div>
+                        </div>
+                         <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="timeline-date">May 30th</h4>
+                                <p class="timeline-description">Mystic!!</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="timeline-date">June 8th</h4>
+                                <p class="timeline-description">Your first insta story! of me (as it should be)</p>
+                            </div>
+                        </div>
+                </div>
+
+                <div class="photo-gallery">
+                    <h3>Memories &lt;3</h3>
+                    <div class="gallery-grid">
+                        <div class="photo-item"><img src="images/IMG_5081.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_6954.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_7049.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_5101.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_4450.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_5696.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_5075.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_3236.JPEG" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_2.png" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_7047.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_3.png" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_4491.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_1837.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_5277.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_7342.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_5299.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_4989.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_4592.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_7192.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_7772.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_7343.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_4.png" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_6952.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_1.png" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_1842.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_4638.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_5710.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_5078.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_6867.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_4975.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_4921.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_5600.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/HPIM1926.JPG" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_5523.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_4458.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_3234.JPEG" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_6727.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_5516.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_4929.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_6934.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_4506.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_4667.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_7069.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_4601.jpg" alt="Us together" loading="lazy"></div>
+                        <div class="photo-item"><img src="images/IMG_4582.jpg" alt="Us together" loading="lazy"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="complaint-form" style="display: none;">
+                <h2>Complaint Form 💌</h2>
+                <form action="https://formspree.io/f/xovwldyq" method="POST">
+                    <div class="form-group">
+                        <label for="name">Subject: </label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="complaint">Your Complaint (I will think long and hard about this and bring it up later I promise!): 💭</label>
+                        <textarea id="complaint" name="complaint" rows="4" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Send 💌</button>
+                </form>
+                <div id="form-message"></div>
+            </div>
+
+            <div id="good-things" style="display: none;">
+                <div id="good-things-flow">
+                    <div id="question1-container" class="good-things-question">
+                        <h2>Are you crashing out?</h2>
+                        <button id="q1-yes">Yes</button>
+                        <button id="q1-no">No</button>
+                    </div>
+                    <div id="question2-container" class="good-things-question" style="display: none;">
+                        <h2>Do you want a long list of good things?</h2>
+                        <button id="q2-yes">Yes</button>
+                        <button id="q2-no">No</button>
+                    </div>
+                    <div id="no1-message" class="good-things-message" style="display: none;">
+                        <p>Good! Good things will be here when you need it :)</p>
+                        <button class="reset-flow-btn">run it back</button>
+                    </div>
+                    <div id="no2-message" class="good-things-message" style="display: none;">
+                        <p>That's ok! Feel better :(</p>
+                        <button class="reset-flow-btn">run it back</button>
+                    </div>
+                </div>
+
+                <div id="good-things-list-container" style="display: none;">
+                    <h2>A long list of all things good ✨</h2>
+                    <div class="good-things-list" id="goodThingsList">
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💕</span>
+                            <span class="good-thing-text">you going out of your way to get access to the pottery studio because you had been hearing talk about it for so long and knew how excited i would be, and i was indeed so excited</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💖</span>
+                            <span class="good-thing-text">being like an older brother to akzel</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💗</span>
+                            <span class="good-thing-text">i dreamt about being in front of a bathroom mirror with you last night and you were hugging me from behind and i turned my head and kissed you and i have not forgotten in the slightest the way your lips feel against mine</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💝</span>
+                            <span class="good-thing-text">watching anime used to always make me feel alone but now watching the rascal does not dream of bunny girl senpai just makes me happy because sakuta reminds me so much of you</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💌</span>
+                            <span class="good-thing-text">getting to bully oliver</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💕</span>
+                            <span class="good-thing-text">the night before you left for taiwan, while you were in the bathroom and we were eating dinner, your parents exchanged your egg for theirs like three times trying to give you the most "perfect" egg</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💖</span>
+                            <span class="good-thing-text">kissing me under full moons</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💗</span>
+                            <span class="good-thing-text">getting to surprise Annie and make her a bit less depressed</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💝</span>
+                            <span class="good-thing-text">seeing the snail and heart we drew still on the shower wall and remembering all the highly efficient showers we took</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💌</span>
+                            <span class="good-thing-text">raising the dumbasses Fred and Doug together and watching them slither over our fingers and building homes for them to hide under when they sleep</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💕</span>
+                            <span class="good-thing-text">getting to hear Anish pee in the shower for another year</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💖</span>
+                            <span class="good-thing-text">getting to see Spiegel's bald head</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💗</span>
+                            <span class="good-thing-text">walking to popeyes at 2am for the fifth time that week as a study break</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💝</span>
+                            <span class="good-thing-text">when it's spring again and i comment on how pretty the flowers are every time we pass them just to hear you call me pretty as well</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💌</span>
+                            <span class="good-thing-text">making lynn and ly and mateo jealous…</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💕</span>
+                            <span class="good-thing-text">waking up to find that we had been in each other's arms all night</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💖</span>
+                            <span class="good-thing-text">getting to work with the literal goat and mastermind in tcm, something you've always wanted to get involved in</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💗</span>
+                            <span class="good-thing-text">talking to the kind old lady from China King</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💝</span>
+                            <span class="good-thing-text">the first time we kissed on the 9th floor of SSS and couldn't stop kissing after that</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💌</span>
+                            <span class="good-thing-text">rolling around making out in the auditorium of the med school</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💕</span>
+                            <span class="good-thing-text">you holding an umbrella over us while i hold onto your arm</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💖</span>
+                            <span class="good-thing-text">so so many cool planes to see and explain to me the difference in the engines and wings and thrust of all the planes ever</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💗</span>
+                            <span class="good-thing-text">youtube x panda express on the floor of your room</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💝</span>
+                            <span class="good-thing-text">always speed walking up science hill because we could never stop cuddling in time to get to lab</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💌</span>
+                            <span class="good-thing-text">putting a different color of sparkly pretty ink in each of your fancy fountain pens and making your notes all rainbow</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💕</span>
+                            <span class="good-thing-text">to see mr octopus be happy again</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💖</span>
+                            <span class="good-thing-text">trying the strawberry matcha from every institution we can find</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💗</span>
+                            <span class="good-thing-text">getting into yale and building a life for yourself that your parents never thought you would be able to</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💝</span>
+                            <span class="good-thing-text">pretending to kiss each other normally just to shove our tongue inside or lick them or come at them with our mouths wide open</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💌</span>
+                            <span class="good-thing-text">hugging matilda and theo</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💕</span>
+                            <span class="good-thing-text">a lifetime of playing with your hair</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💖</span>
+                            <span class="good-thing-text">beautiful medium rare steaks</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💗</span>
+                            <span class="good-thing-text">so many frat parties and darties and frat songs and new sig chi drink inventions</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💝</span>
+                            <span class="good-thing-text">getting drunk just by ourselves so that we can talk all night and make out all we want and be in love all we want</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💌</span>
+                            <span class="good-thing-text">winters with your and your mother's bright green jackets</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💕</span>
+                            <span class="good-thing-text">the first time we see each other again and not being able to do anything for a whole day other than hug each other</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💖</span>
+                            <span class="good-thing-text">arnold palmers</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💗</span>
+                            <span class="good-thing-text">staying in HQ until 3am with the blackboards full of chemistry and snails</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💝</span>
+                            <span class="good-thing-text">all those times when you remember that it is worth it, and want to remember forever why it is worth it</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💌</span>
+                            <span class="good-thing-text">slowly listening to chinese songs on youtube while i'm lying in your lab and dissecting the lyrics one line at a time so that we can be just as sad as the song</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💕</span>
+                            <span class="good-thing-text">me (i am a very good thing)</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💖</span>
+                            <span class="good-thing-text">endless racist reels</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💗</span>
+                            <span class="good-thing-text">learning Canon in D from the best piano teacher ever</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💝</span>
+                            <span class="good-thing-text">sitting with your grandpa and just enjoying his presence</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💌</span>
+                            <span class="good-thing-text">microwaved parmesan chips</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💕</span>
+                            <span class="good-thing-text">a single all to ourselves… that cannot be bought for 3k</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💖</span>
+                            <span class="good-thing-text">how far you've come with your relationship with your mom and the way you're able to be so open with her and how willing she is to help you</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💗</span>
+                            <span class="good-thing-text">so so many sunsets to watch together in the most beautiful places</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💝</span>
+                            <span class="good-thing-text">opening a pokemon pack to find a good card (addiction?? gambling??)</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💌</span>
+                            <span class="good-thing-text">making fun of james tour</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💕</span>
+                            <span class="good-thing-text">the V+Y we etched into the wall in some hidden tunnel in the basement of kline tower we'll never find again</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💖</span>
+                            <span class="good-thing-text">spending 3 more years with akzel!</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💗</span>
+                            <span class="good-thing-text">peanut noodles from flushing</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💝</span>
+                            <span class="good-thing-text">cool knives</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💌</span>
+                            <span class="good-thing-text">cooking salmon for the first time and getting it perfectly</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💕</span>
+                            <span class="good-thing-text">me kicking my feet lying in bed as i call you</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💖</span>
+                            <span class="good-thing-text">arethusa ice cream</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💗</span>
+                            <span class="good-thing-text">staying optimal</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💝</span>
+                            <span class="good-thing-text">going from house to house stealing more alcohol than we can ever drink</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💌</span>
+                            <span class="good-thing-text">getting lost in buildings together and then you figure out exactly where you are</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💕</span>
+                            <span class="good-thing-text">good morning and good night texts</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💖</span>
+                            <span class="good-thing-text">seeing monkeys at the zoo</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💗</span>
+                            <span class="good-thing-text">forehead kisses</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💝</span>
+                            <span class="good-thing-text">you laying in my lap and feeling like everything is going to be ok (you'll feel that way again i promise)</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💌</span>
+                            <span class="good-thing-text">me sleeping in your lap while you do work</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💕</span>
+                            <span class="good-thing-text">growing as people together</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💖</span>
+                            <span class="good-thing-text">turning a random studio apartment into a home</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💗</span>
+                            <span class="good-thing-text">all of the children that you have taught and helped</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💝</span>
+                            <span class="good-thing-text">how protective you are of me</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💌</span>
+                            <span class="good-thing-text">sitting in the vandy tunnel late because we don't want to say goodbye</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💕</span>
+                            <span class="good-thing-text">dean g's dogs</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💖</span>
+                            <span class="good-thing-text">all the mirrors and windows and reflective surfaces for us to take cute photos in</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💗</span>
+                            <span class="good-thing-text">getting bracelets and jewelry for each other</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💝</span>
+                            <span class="good-thing-text">carefully folder origami animals with your lunch</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💌</span>
+                            <span class="good-thing-text">judging all the drunk people at gheve together</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💕</span>
+                            <span class="good-thing-text">toads! (maybe)</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💖</span>
+                            <span class="good-thing-text">going to the cemetery and seeing the pencils on gibb's grave and realizing that in the end it's all meaningless and everything will eventually be ok</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💗</span>
+                            <span class="good-thing-text">picking each other up from tests and taking bathroom breaks to hug each other</span>
+                        </div>
+                        <div class="good-thing-item">
+                            <span class="good-thing-icon">💝</span>
+                            <span class="good-thing-text">i'm walking to get bbq chicken and i can remember instances of walking with you holding your hand on every single one of these roads</span>
+                        </div>
+                    </div>
+                    <button class="reset-flow-btn" style="display: block; margin: 20px auto;">run it back</button>
+                </div>
+            </div>
+
+            <div id="guestbook" style="display: none;">
+                <h2>Guestbook 💬</h2>
+
+                <!-- begin www.htmlcommentbox.com -->
+                <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">Widget</a> is loading comments...</div>
+                <link rel="stylesheet" type="text/css" href="https://www.htmlcommentbox.com/static/skins/bootstrap/twitter-bootstrap.css?v=0" />
+                <script>
+                  if(!window.hcb_user){hcb_user={};}
+                  hcb_user['comments_header'] = 'Entries';
+                </script>
+                <script type="text/javascript" id="hcb">
+                  if(!window.hcb_user){hcb_user={};}
+                  (function(){
+                    var s=document.createElement("script"),
+                        l=hcb_user.PAGE || (""+window.location).replace(/'/g,"%27"),
+                        h="https://www.htmlcommentbox.com";
+                    s.setAttribute("type","text/javascript");
+                    s.setAttribute("src", h+"/jread?page="+encodeURIComponent(l).replace(/\+/g,"%2B")+"&opts=16798&num=10&ts=1750432048616");
+                    if (typeof s!="undefined") document.getElementsByTagName("head")[0].appendChild(s);
+                  })();
+                </script>
+                <!-- end www.htmlcommentbox.com -->
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Welcome page functionality
+        function calculateDaysSince() {
+            const startDate = new Date('December 1, 2024');
+            const today = new Date();
+            const timeDiff = today.getTime() - startDate.getTime();
+            const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+            return daysDiff;
+        }
+
+        function updateWelcomeTitle() {
+            const days = calculateDaysSince();
+            document.getElementById('welcomeTitle').textContent = `Happy ${days} days of our relationship!`;
+        }
+
+        function enterWebsite() {
+            document.getElementById('welcomeOverlay').style.display = 'none';
+            document.getElementById('mainContent').classList.add('show');
+        }
+
+        // Initialize welcome page
+        updateWelcomeTitle();
+
+        // Shuffle good things list
+        function shuffleGoodThings() {
+            const goodThingsList = document.getElementById('goodThingsList');
+            if (!goodThingsList) return;
+            
+            const items = Array.from(goodThingsList.children);
+            
+            // Fisher-Yates shuffle algorithm
+            for (let i = items.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                goodThingsList.appendChild(items[j]);
+            }
+        }
+
+        // Shuffle the list when the page loads
+        shuffleGoodThings();
+
+        // Tab switching functionality
+        document.querySelectorAll('.nav-tabs a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.nav-tabs a').forEach(a => a.classList.remove('active'));
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Hide all content divs
+                document.querySelectorAll('.content > div').forEach(div => div.style.display = 'none');
+                
+                // Show the selected content
+                const targetId = this.getAttribute('href').substring(1);
+                document.getElementById(targetId).style.display = 'block';
+            });
+        });
+
+        // Form submission handling
+        const form = document.querySelector('form');
+        const messageDiv = document.getElementById('form-message');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            const submitBtn = form.querySelector('.submit-btn');
+            
+            // Disable submit button and show loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending Love... 💕';
+            
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    messageDiv.innerHTML = '<div class="success-message">💖 Thank you! Your love note has been sent successfully! 💖</div>';
+                    form.reset();
+                } else {
+                    messageDiv.innerHTML = '<div class="error-message">💔 Sorry, there was an error sending your love note. Please try again! 💔</div>';
+                }
+            })
+            .catch(error => {
+                messageDiv.innerHTML = '<div class="error-message">💔 Sorry, there was an error sending your love note. Please try again! 💔</div>';
+            })
+            .finally(() => {
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send 💌';
+            });
+        });
+
+        // --- Cute Snail Animation ---
+        const snail = document.getElementById('snail');
+        const navTabs = document.querySelector('.nav-tabs');
+        let snailPos = 0;
+        let goingRight = true;
+        const snailSpeed = 0.6;
+
+        function moveSnail() {
+            if (!navTabs) return;
+            const containerWidth = navTabs.offsetWidth;
+            const snailWidth = snail.offsetWidth;
+
+            if (goingRight) {
+                snailPos += snailSpeed;
+                if (snailPos > containerWidth - snailWidth) {
+                    snailPos = containerWidth - snailWidth;
+                    goingRight = false;
+                    snail.classList.add('flipped');
+                }
+            } else {
+                snailPos -= snailSpeed;
+                if (snailPos < 0) {
+                    snailPos = 0;
+                    goingRight = true;
+                    snail.classList.remove('flipped');
+                }
+            }
+            
+            snail.style.left = snailPos + 'px';
+
+            requestAnimationFrame(moveSnail);
+        }
+        
+        snail.addEventListener('click', () => {
+            goingRight = !goingRight;
+            snail.classList.toggle('flipped');
+        });
+        
+        requestAnimationFrame(moveSnail);
+
+        // --- Good Things Flow ---
+        const goodThingsTabLink = document.querySelector('a[href="#good-things"]');
+        const goodThingsFlow = document.getElementById('good-things-flow');
+        const goodThingsList = document.getElementById('good-things-list-container');
+
+        const q1 = document.getElementById('question1-container');
+        const q2 = document.getElementById('question2-container');
+        
+        const q1Yes = document.getElementById('q1-yes');
+        const q1No = document.getElementById('q1-no');
+        const q2Yes = document.getElementById('q2-yes');
+        const q2No = document.getElementById('q2-no');
+
+        const msg1 = document.getElementById('no1-message');
+        const msg2 = document.getElementById('no2-message');
+
+        const resetBtns = document.querySelectorAll('.reset-flow-btn');
+
+        const showEl = (el) => el.style.display = 'block';
+        const hideEl = (el) => el.style.display = 'none';
+
+        function resetFlow() {
+            hideEl(goodThingsList);
+            hideEl(q2);
+            hideEl(msg1);
+            hideEl(msg2);
+            showEl(goodThingsFlow);
+            showEl(q1);
+        }
+
+        goodThingsTabLink.addEventListener('click', (e) => {
+            // Delay reset to allow tab switching logic to complete
+            setTimeout(resetFlow, 1); 
+        });
+
+        q1Yes.addEventListener('click', () => {
+            hideEl(q1);
+            showEl(q2);
+        });
+
+        q1No.addEventListener('click', () => {
+            hideEl(q1);
+            showEl(msg1);
+        });
+
+        q2Yes.addEventListener('click', () => {
+            hideEl(goodThingsFlow);
+            showEl(goodThingsList);
+        });
+
+        q2No.addEventListener('click', () => {
+            hideEl(q2);
+            showEl(msg2);
+        });
+
+        resetBtns.forEach(btn => btn.addEventListener('click', resetFlow));
+
+        // --- Countdown Timer ---
+        function updateCountdown() {
+            const targetDate = new Date('August 9, 2025 23:00:00').getTime();
+            const now = new Date().getTime();
+            const timeLeft = targetDate - now;
+
+            if (timeLeft > 0) {
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            } else {
+                // If the date has passed, show zeros
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+            }
+        }
+
+        // Update countdown every second
+        updateCountdown();
+        setInterval(updateCountdown, 1000); // Update every second
+    </script>
+</body>
+</html> 
