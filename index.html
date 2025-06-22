@@ -1594,14 +1594,14 @@
             .then(response => response.json())
             .then(data => {
                 if (data.ok) {
-                    messageDiv.innerHTML = '<div class="success-message">💖 Thank you! Your love note has been sent successfully! 💖</div>';
+                    messageDiv.innerHTML = '<div class="success-message">💖 Thank you! Your complaint has been sent successfully! 💖</div>';
                     form.reset();
                 } else {
-                    messageDiv.innerHTML = '<div class="error-message">💔 Sorry, there was an error sending your love note. Please try again! 💔</div>';
+                    messageDiv.innerHTML = '<div class="error-message">💔 Sorry, there was an error sending. Please try again! 💔</div>';
                 }
             })
             .catch(error => {
-                messageDiv.innerHTML = '<div class="error-message">💔 Sorry, there was an error sending your love note. Please try again! 💔</div>';
+                messageDiv.innerHTML = '<div class="error-message">💔 Sorry, there was an error sending. Please try again! 💔</div>';
             })
             .finally(() => {
                 // Re-enable submit button
