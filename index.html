@@ -1146,9 +1146,14 @@
                         <button id="q1-no">No</button>
                     </div>
                     <div id="question2-container" class="good-things-question" style="display: none;">
-                        <h2>Do you want a long list of good things?</h2>
+                        <h2>Do you want to get one good thing at a time?</h2>
                         <button id="q2-yes">Yes</button>
                         <button id="q2-no">No</button>
+                    </div>
+                    <div id="question3-container" class="good-things-question" style="display: none;">
+                        <h2>Do you want a long list of good things?</h2>
+                        <button id="q3-yes">Yes</button>
+                        <button id="q3-no">No</button>
                     </div>
                     <div id="no1-message" class="good-things-message" style="display: none;">
                         <p>Good! Good things will be here when you need it :)</p>
@@ -1700,28 +1705,38 @@
         const goodThingsTabLink = document.querySelector('a[href="#good-things"]');
         const goodThingsFlow = document.getElementById('good-things-flow');
         const goodThingsList = document.getElementById('good-things-list-container');
+        const singleGoodThingContainer = document.getElementById('single-good-thing-container');
 
         const q1 = document.getElementById('question1-container');
         const q2 = document.getElementById('question2-container');
+        const q3 = document.getElementById('question3-container');
         
         const q1Yes = document.getElementById('q1-yes');
         const q1No = document.getElementById('q1-no');
         const q2Yes = document.getElementById('q2-yes');
         const q2No = document.getElementById('q2-no');
+        const q3Yes = document.getElementById('q3-yes');
+        const q3No = document.getElementById('q3-no');
 
         const msg1 = document.getElementById('no1-message');
         const msg2 = document.getElementById('no2-message');
+        const msg3 = document.getElementById('no3-message');
 
         const resetBtns = document.querySelectorAll('.reset-flow-btn');
+        const showRandomGoodThingBtn = document.getElementById('show-random-good-thing');
+        const singleGoodThingDisplay = document.getElementById('single-good-thing-display');
 
         const showEl = (el) => el.style.display = 'block';
         const hideEl = (el) => el.style.display = 'none';
 
         function resetFlow() {
             hideEl(goodThingsList);
+            hideEl(singleGoodThingContainer);
             hideEl(q2);
+            hideEl(q3);
             hideEl(msg1);
             hideEl(msg2);
+            hideEl(msg3);
             showEl(goodThingsFlow);
             showEl(q1);
         }
@@ -1743,12 +1758,23 @@
 
         q2Yes.addEventListener('click', () => {
             hideEl(goodThingsFlow);
-            showEl(goodThingsList);
+            showEl(singleGoodThingContainer);
+            showRandomGoodThing(); // Show initial random good thing
         });
 
         q2No.addEventListener('click', () => {
             hideEl(q2);
-            showEl(msg2);
+            showEl(q3);
+        });
+
+        q3Yes.addEventListener('click', () => {
+            hideEl(goodThingsFlow);
+            showEl(goodThingsList);
+        });
+
+        q3No.addEventListener('click', () => {
+            hideEl(q3);
+            showEl(msg3);
         });
 
         resetBtns.forEach(btn => btn.addEventListener('click', resetFlow));
@@ -1924,6 +1950,41 @@
         });
 
         // --- Cute Snail Animation ---
+
+        // Function to get a random good thing
+        function getRandomGoodThing() {
+            const goodThingsList = document.getElementById('goodThingsList');
+            if (!goodThingsList) return null;
+            
+            const items = Array.from(goodThingsList.children);
+            if (items.length === 0) return null;
+            
+            const randomIndex = Math.floor(Math.random() * items.length);
+            const randomItem = items[randomIndex];
+            
+            const icon = randomItem.querySelector('.good-thing-icon').textContent;
+            const text = randomItem.querySelector('.good-thing-text').textContent;
+            
+            return { icon, text };
+        }
+
+        // Function to display a random good thing
+        function showRandomGoodThing() {
+            const goodThing = getRandomGoodThing();
+            if (goodThing) {
+                singleGoodThingDisplay.innerHTML = `
+                    <div class="good-thing-item" style="margin: 0; text-align: center;">
+                        <span class="good-thing-icon">${goodThing.icon}</span>
+                        <span class="good-thing-text">${goodThing.text}</span>
+                    </div>
+                `;
+            } else {
+                singleGoodThingDisplay.innerHTML = '<p>No good things found :(</p>';
+            }
+        }
+
+        // Handle the "Show me a good thing" button
+        showRandomGoodThingBtn.addEventListener('click', showRandomGoodThing);
     </script>
 </body>
 </html> 
